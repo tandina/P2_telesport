@@ -1,0 +1,14 @@
+<div class="graph">
+  <h2 class="graph_title">Medals per Country</h2>
+  <div class="graph_textcontainer">
+    <div class="graph_textcontainer--label">
+      <h4>Number of JOs</h4>
+      <p>{{ this.maxParticipations?.participations?.length || 0 }}</p>
+    </div>
+    <div class="graph_textcontainer--label">
+      <h4>Number of countries</h4>
+      <p>{{ this.olympicData.length }}</p>
+    </div>
+  </div>
+  <div class="graph_pie"><canvas id="piechart"></canvas></div>
+</div>
