@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { Chart, registerables } from "../../../node_modules/chart.js";
+import { Component, OnInit, ElementRef } from "@angular/core";
+import { Chart, registerables } from "../../../node_modules/chart.js/auto";
 import { OlympicService } from "../core/services/olympic.service"; // Importez le service
 import { olympicCountryType } from "../core/models/Olympic"; // Assurez-vous d'importer la bonne interface
+import { Router, ActivatedRoute } from "@angular/router";
 
 Chart.register(...registerables);
 
@@ -14,19 +15,19 @@ export class PieChartComponent implements OnInit {
   olympicData: olympicCountryType[] = []; // Initialisez avec un tableau vide
   maxParticipations: olympicCountryType | undefined;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(
+    private olympicService: OlympicService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
     // Utilisez la méthode du service pour charger les données
     this.olympicService.loadInitialData().subscribe((data) => {
       this.olympicData = data;
+      this.showMaxParticipations();
       this.RenderChart(); // Une fois les données chargées, appelez la méthode pour rendre le graphique
-      console.log(data);
-    });
-    this.olympicService.loadInitialData().subscribe((data) => {
-      this.olympicData = data;
-      this.showMaxParticipations(); // Calculez le pays avec le plus de participations
-      this.RenderChart();
       console.log(data);
     });
   }
@@ -61,6 +62,26 @@ export class PieChartComponent implements OnInit {
         0
       )
     );
+    const onSliceClick = (event: [], chart: any) => {
+      const elements = chart.getElementsAtEventForMode(
+        event,
+        "nearest",
+        { intersect: true },
+        false
+      );
+
+      if (elements.length > 0) {
+        const clickedElement = elements[0];
+        const dataIndex = clickedElement.index;
+        const countryData = this.olympicData[dataIndex]; // Obtenir l'objet olympicCountryType correspondant
+        const countryId = countryData.id; // Récupérer l'ID du pays
+
+        // Redirigez vers la page 'chart' avec le paramètre 'countryId'
+        this.router.navigate(["chart", countryId], {
+          relativeTo: this.route,
+        });
+      }
+    };
     const countryNames = this.olympicData.map((country) => country.country);
 
     // Créez un tableau d'objets de données avec les propriétés label et data
@@ -111,6 +132,9 @@ export class PieChartComponent implements OnInit {
         },
         scales: {},
         responsive: true,
+        onClick: (event: any) => {
+          onSliceClick(event, myChart);
+        },
       },
     });
   }

@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./pages/home/home.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
+import { CountryComponent } from "./country/country.component";
 
 const routes: Routes = [
   {
-    path: "",
-    component: HomeComponent,
+    path: "chart/:id",
+    component: CountryComponent,
   },
   {
-    path: "chart",
+    path: "",
     component: PieChartComponent,
   },
   {

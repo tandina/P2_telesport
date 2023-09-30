@@ -1,0 +1,19 @@
+<div class="graph">
+  <h2 class="graph_title">{{ country?.country }}</h2>
+  <div class="graph_textcontainer">
+    <div class="graph_textcontainer--label">
+      <h4>Number of Entries</h4>
+      <p>{{ country?.participations?.length }}</p>
+    </div>
+    <div class="graph_textcontainer--label">
+      <h4>Total number Medals</h4>
+      <p>{{ getTotalMedals() }}</p>
+    </div>
+    <div class="graph_textcontainer--label">
+      <h4>Total number of athletes</h4>
+      <p>{{ getTotalAthletes() }}</p>
+    </div>
+  </div>
+  <div class="graph_pie"><canvas id="linechart"></canvas></div>
+  <a routerLink="" class="graph_link">Country List</a>
+</div>

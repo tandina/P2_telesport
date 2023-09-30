@@ -30,12 +30,20 @@
   width: fit-content;
   color: black;
   padding: 10px;
-  border-radius: 10px;
   font-size: 18px;
 }
-#piechart {
-  width: 645px !important;
-  height: 645px !important;
+.graph_link {
+  color: black;
+  text-decoration: none;
+  border: 5px outset #04838f;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 15px;
+}
+#linechart {
+  height: 322px;
+  width: 645px;
 }
 @media screen and (max-width: 390px) {
   .graph {
@@ -50,8 +58,8 @@
     padding: 0px;
     font-size: 16px;
   }
-  #piechart {
+  #linechart {
+    height: 145px !important;
     width: 345px !important;
-    height: 345px !important;
   }
 }
